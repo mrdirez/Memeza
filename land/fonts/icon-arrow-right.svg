@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>B2BBE0ED-7248-4D57-8D03-2811A98E1426</title>
+    <defs>
+        <polygon id="path-1" points="0 0.707106781 0.707106781 0 6.71751442 6.01040764 0.707106781 12.0208153 0 11.3137085 5.30330086 6.01040764"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="OB_login_QR_Code" transform="translate(-1304.000000, -182.000000)">
+            <rect fill="#FFFFFF" x="0" y="0" width="1440" height="1254"></rect>
+            <g id="Group-2-Copy" transform="translate(945.000000, 140.000000)">
+                <text id="Fast-and-easy" font-family="MarkPro, Mark Pro" font-size="16" font-weight="normal" line-spacing="24" fill="#333333">
+                    <tspan x="61" y="41">Fast and easy</tspan>
+                </text>
+                <g id="Web---Pieces/2.-Icons/icon-arrow-right-Copy-3" transform="translate(363.989592, 43.989592)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="icon-arrow-right" fill="#009639" fill-rule="nonzero" xlink:href="#path-1"></use>
+                    <g id="Icon-colour-mask" mask="url(#mask-2)" fill="#666666" fill-rule="nonzero">
+                        <g transform="translate(-4.989592, -1.989592)" id="Rectangle">
+                            <rect x="0" y="0" width="16" height="16"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg  viewBox="0 0 18 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>2. icons/24px</title>
+    <defs>
+        <path d="M5.70058579,6.75 L12,11.7895314 L18.2994142,6.75 L5.70058579,6.75 Z M19.5,7.71046864 L12,13.7104686 L4.5,7.71046864 L4.5,17.25 L19.5,17.25 L19.5,7.71046864 Z M3,5.25 L21,5.25 L21,18.75 L3,18.75 L3,5.25 Z" id="path-1"></path>
+    </defs>
+    <g id="Login" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop/OnlineShareTrading-Header-detail" transform="translate(-920.000000, -33.000000)">
+            <g id="icon" transform="translate(917.000000, 28.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="colour" fill="#006341" fill-rule="nonzero" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

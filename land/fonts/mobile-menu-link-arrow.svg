@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="17px" viewBox="0 0 10 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Back</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="01---Landing" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0600_---Mobile-|-Menu-lvl-1" transform="translate(-345.000000, -101.000000)" fill="#FFFFFF">
+            <g id="Group" transform="translate(20.000000, 99.000000)">
+                <path d="M322.263551,6.3716408 L322.263551,16.3299022 L320.420921,16.3299022 L320.420921,5.18291268 L320.443828,5.18291268 L320.443828,4.53206943 L332.420921,4.51194023 L332.420921,6.3545699 L322.263551,6.3716408 Z" id="Back" transform="translate(326.420921, 10.420921) scale(-1, 1) rotate(-45.000000) translate(-326.420921, -10.420921) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

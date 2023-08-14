@@ -1,0 +1,1549 @@
+<html lang="en"><head><script type="text/javascript">
+//<![CDATA[
+window["_tsbp_"] = { ba : "X-TS-BP-Action", bh : "X-TS-AJAX-Request"};
+//]]>
+</script><script type="text/javascript" src="js/08186429f3ab2000a066eb4182a3ab3612aa10a96a00d7cfec9a40fb68ace1f6ec25efc8fd916a35.js"></script><script id="f5_cspm">(function(){var f5_cspm={f5_p:'FBHPJJKHLEMNLNGBGDOMIEIADAGLEAGEAOHOFBDOMHPNDGOJPEFDINDCHAAICKALDFFBPBIKAAGJBKKFIPPADBEIAAKJFINAANBMEBCDNFAALPMIAHCKAMDAGGKJAKPA',setCharAt:function(str,index,chr){if(index>str.length-1)return str;return str.substr(0,index)+chr+str.substr(index+1);},get_byte:function(str,i){var s=(i/16)|0;i=(i&15);s=s*32;return((str.charCodeAt(i+16+s)-65)<<4)|(str.charCodeAt(i+s)-65);},set_byte:function(str,i,b){var s=(i/16)|0;i=(i&15);s=s*32;str=f5_cspm.setCharAt(str,(i+16+s),String.fromCharCode((b>>4)+65));str=f5_cspm.setCharAt(str,(i+s),String.fromCharCode((b&15)+65));return str;},set_latency:function(str,latency){latency=latency&0xffff;str=f5_cspm.set_byte(str,40,(latency>>8));str=f5_cspm.set_byte(str,41,(latency&0xff));str=f5_cspm.set_byte(str,35,2);return str;},wait_perf_data:function(){try{var wp=window.performance.timing;if(wp.loadEventEnd>0){var res=wp.loadEventEnd-wp.navigationStart;if(res<60001){var cookie_val=f5_cspm.set_latency(f5_cspm.f5_p,res);window.document.cookie='f5avr1607400404aaaaaaaaaaaaaaaa_cspm_='+encodeURIComponent(cookie_val)+';path=/';}
+return;}}
+catch(err){return;}
+setTimeout(f5_cspm.wait_perf_data,100);return;},go:function(){var chunk=window.document.cookie.split(/\s*;\s*/);for(var i=0;i<chunk.length;++i){var pair=chunk[i].split(/\s*=\s*/);if(pair[0]=='f5_cspm'&&pair[1]=='1234')
+{var d=new Date();d.setTime(d.getTime()-1000);window.document.cookie='f5_cspm=;expires='+d.toUTCString()+';path=/;';setTimeout(f5_cspm.wait_perf_data,100);}}}}
+f5_cspm.go();}());</script>
+
+<script>
+  var noRedirect =false;
+  function getParameterByName(url, name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(url);
+    if (results==null) {
+                       return null;
+    }
+    return decodeURI(results[1]) || 0;
+  }
+
+  function formatURLParm(url) {
+    //Remove the hostname part in the URL parameter
+    if (url!=null && url!="") { 
+      return url.replace(/https?%3A%2F%2F[A-Za-z0-9\.\-]*(%2F)?/g, "$1");
+    }
+    else {
+      return url;
+    }
+  }
+
+  // CR1 Immediate Redirect to registration pages, unless query parameter operation=LOGIN is specified
+  var urlParameter = formatURLParm(getParameterByName(window.location.search, "URL"));
+  if (window.location.hostname == "apply.nedbank.co.za" && (urlParameter!=null && urlParameter.includes("%2FClientOnboarding%2Fauth") && !urlParameter.includes("operation%3DLOGIN"))) {
+    window.stop();
+    navigateMaintenanceWithReturnURL('register');
+   } else if (window.location.hostname == "secured.nedbank.co.za") { //Process Riderect for Online Banking
+      var ObQueryParameters = null;
+      var urlParameterQueryString = null;
+
+      if (urlParameter.indexOf("%3F")!=-1) {
+         urlParameterQueryString = (urlParameter+'').split("%3F");
+      }
+
+      //ObQueryParameters = urlParameter.replace(/%3F/g, '?').replace(/%3D/g, '=').replace(/%2F/g, '/');
+      if (urlParameterQueryString != null && urlParameterQueryString.length>0) {
+        ObQueryParameters = urlParameterQueryString[1].replace(/%3D/g, '=').replace(/%2F/g, '/').replace(/%26/g, '&');
+      } else {
+      }
+      var obLandingPageURL = "https://secured.nedbank.co.za/OnlineBanking/index.bank";
+      if (ObQueryParameters!=null) obLandingPageURL += "?" + ObQueryParameters;
+      window.location.href = obLandingPageURL;
+    }
+
+  var USER_NAME="";
+
+   function setFocus() {
+      document.getElementById("username").focus();
+   }
+
+   function navigateMaintenanceWithReturnURL(nedIDPath)
+   {
+
+      if (window.validateNBH()) {
+         if (nedIDPath == "register") {
+            window.location.href = window.ngiLinkRegistration;
+         }
+         else if (nedIDPath == "forgot-details") {
+            window.location.href = window.ngiLinkForgotDetails;
+         }
+         return;
+      }
+      if (noRedirect) {
+         return;
+      }
+    var urlParam = window.location.search;
+    var targetParamName = "ReturnURL=";
+    var targetParamNameLength = targetParamName.length;
+    var QueryString = "";
+    console.log("urlParam.indexOf: " + urlParam.indexOf(targetParamName));
+    var initialRequestURI = formatURLParm("");
+    console.log("initialRequestURI: " + initialRequestURI);
+    console.log("URL: " + "");
+    console.log("URL: " + "%URL%");
+    var initialUrl = "";
+    if (urlParam.indexOf(targetParamName) > -1) {
+      console.log("There is already an existing ReturnURL, use as is");
+      QueryString = urlParam.substr(urlParam.indexOf(targetParamName)+targetParamNameLength);
+    } else {
+         //var urlParameters = new URLSearchParams(window.location.search);
+         //var urlParameters = getParameterByName(window.location.search);
+      initialUrl = "";
+      if (initialRequestURI != null && initialRequestURI != "") {
+        console.log("Found a previously used URL, using that");
+        initialUrl = initialRequestURI;
+      }
+      else {
+        console.log("There isn't an existing query string, use the URL parameter");
+        initialUrl = formatURLParm(getParameterByName(window.location.search, "URL"));
+      }
+      if (initialUrl!=null) {
+        initialUrl = initialUrl.replace(/%3F/g, '?').replace(/%3D/g, '=').replace(/%2F/g, '/').replace(/%26/g, '&');
+        QueryString = btoa(unescape(encodeURIComponent(window.location.protocol + "//" + window.location.hostname + initialUrl)));
+      } else {
+        console.log("URL parameter is null, use the current window location");
+        QueryString = btoa(unescape(encodeURIComponent(window.location.href)));
+      }
+                                               //btoa(unescape(encodeURIComponent(window.location)));
+    }
+       //Make the query string base64
+       //QueryString = btoa(unescape(encodeURIComponent(QueryString )));
+       //str = decodeURIComponent(escape(window.atob(b64)));
+       var operation = "";
+       if (nedIDPath == "register") {
+          operation = "REGISTER";
+       }
+       else if (nedIDPath == "forgot-details") {
+          operation = "FORGOTDETAILS";
+       }
+           var registrationURL = "https://secured-id.nedbank.co.za/NedID/maintenance/index.bank?ReturnURL=" + QueryString + "&USERNAME=unauthenticated&operation=" + operation;
+           console.log("QueryString: " + QueryString);
+           console.log("registrationURL: " + registrationURL);
+           window.location.href = registrationURL;
+           console.log("Registration link: " + registrationURL);
+   }
+
+    function validateLoginInput() {
+       if (document.getElementById("username").value != null &&
+          document.getElementById("username").value.includes(" ")) {
+          document.getElementById("usernameFieldMessage").style.display = "block";
+       } else {
+          document.getElementById("usernameFieldMessage").style.display = "none";
+       }
+
+       if(document.getElementById("username").value &&
+          document.getElementById("username").value.trim() != "" &&
+                                           document.getElementById("password").value &&
+          document.getElementById("password").value != "" &&
+          !document.getElementById("username").value.includes(" ")) {
+          document.getElementById("login").disabled = false;
+       } else {
+          document.getElementById("login").disabled = true;
+       }
+    }
+
+
+    function disableLoginButtonOnEnterKeySubmit() {
+      if (window.event.code === 'Enter' ||
+      window.event.code === 'NumpadEnter') { //The enter key was used to submit
+        document.getElementById("login").disabled = true;
+      }
+      return true;
+    }
+
+    function validateLoginForm() {
+        document.getElementById("login").disabled = true;
+        return true;
+    }
+
+    function toggleError() {
+       var messageBox = document.getElementById("message-error");
+       messageBox.classList.toggle("show-error");
+    }
+    function prePopulateUserName() {
+       if(!USER_NAME) {
+          return ;
+       }
+       var userNameInput = document.getElementById("username");
+       var prePopulatedLabel = document.getElementById("pre-populate-label");
+       document.body.classList.add('prepopulated-user-name');
+       centerAlignLabel();
+       if (userNameInput && prePopulatedLabel) {
+       userNameInput.value = USER_NAME;
+       prePopulatedLabel.innerHTML = USER_NAME;}
+    }
+
+    function centerAlignLabel() {
+      document.body.classList.add('centeralign-login');
+    }
+
+    function hideHeader() {
+      document.body.classList.add('no-headers');
+    }
+
+    function hidefooter() {
+      document.body.classList.add('no-footer');
+    }
+
+    function validateCr1() {
+      if(window.nidsp && +nidsp === 27) {
+         centerAlignLabel();
+       }
+    }
+    function validateNBH() {
+      if(window.nidsp && +nidsp === 88) {
+         document.body.classList.add('nbh-theme');
+         return true
+       }
+       return false;
+    }
+    function tncClick(event) {
+       if(noRedirect) {
+         event.preventDefault()
+         return false;
+       }
+    }
+
+    function validateMoney() {
+      if(window.nidsp && +nidsp === 20) {
+         centerAlignLabel();
+         hideHeader();
+         hidefooter();
+         noRedirect = true;
+       }
+    }
+
+
+    function validateclient() {
+      validateKiosk();
+      validateCr1();
+      validateMoney();
+      validateNBH();
+      validateInvest();
+    }
+
+    function postIframeMessage(message) {
+      if (window.parent && (window.location !== window.parent.location)) {
+         window.parent.postMessage(message, document.referrer);
+      }
+   }
+
+  var nidspMatrix = {
+      '1': 'My Financial Life',
+      '2': 'Consolidated View',
+      '3': 'Internet Banking',
+      '4': 'NedbankID',
+      '5': 'Yodlee',
+      '6': 'Dynamic Online Forms',
+      '7': 'American Express',
+      '8': 'MembershipRewards',
+      '9': 'Nedbank Greenbacks',
+      '10': 'Nedbank Market Edge',
+      '11': 'MFC Self Service',
+      '12': 'NedFleet',
+      '13': 'Private Wealth',
+      '20': 'MoneyWeb External',
+      '21': 'Claimsonweb',
+      '22': 'MoneyApp',
+      '23': 'Unlocked',
+      '24': 'Nedbank.co.za Forms',
+      '25': 'Juristic Banking Portal',
+      '26': 'Bank Code Service',
+      '27': 'CR1',
+      '28': 'Fleet Management System',
+      '29': 'Merchant On-boarding',
+      '30': 'Stockbroking',
+      '31': 'Merchant Portal',
+      '32': 'Small Business Enablement',
+      '33': 'Self Service Kiosk',
+      '34': 'Nedbank Deposit Notes',
+      '35': 'Comarch_Loyalty',
+      '36': 'Nedbank Investment Trust',
+      '37': 'MFC Self Service Client Onboarding',
+      '38': 'ECWO',
+      '39': 'NBB',
+      '40': 'BPM',
+      '41': 'Home Loans Digital 5.2',
+      '42': 'NedTreasury.Net',
+      '43': 'Partner Loans',
+      '44': 'API Marketplace',
+      '45': 'Comarch_Loyalty Mobile App',
+      '46': 'Infosys CLL POC',
+      '47': 'Enterprise Content Services',
+      '48': 'Banking Platform',
+      '49': 'Entitlements Engine CR1',
+      '50': 'Private Wealth App',
+      '51': 'eFica',
+      '52': 'Genesis',
+      '53': 'ATM FE',
+      '54': 'MobiMoney / API Wallet',
+      '55': 'CAP',
+      '56': 'USSD',
+      '57': 'MFC Floorplans and Fleet',
+      '58': 'Nitro',
+      '59': 'CR1 Merchant',
+      '60': 'Progressive Web App',
+      '61': 'IIB - Message Broker',
+      '62': 'On Behalf Off'
+   };
+
+  function populateWebsiteOrigin(nidsp, matrix) {
+    if (!window.digitalData.website) {
+      window.digitalData.website = {};
+    }
+    var originName = matrix[nidsp];
+    window.digitalData.website.websiteOrigin = originName;
+  }
+
+  //Auto redirect to the correct location (if there are no errors on the page such as after entering the incorrect username/password)
+  if ("@ERROR_MESSAGE" == null || "" == "") {
+    console.log("Current URL hostname: " + window.location.hostname);
+    console.log("Full URL: " + window.location);
+    var currentURI = formatURLParm(getParameterByName(window.location.search, "URL"));
+    console.log("URI parameter: " + currentURI);
+    /*
+      if (window.location.href.includes("apply.nedbank.co.za") && currentURI != "%2FClientOnboarding%2Fauth%2Findex.bank" && currentURI != "%2FExternalMerchants%2Fauth%2Findex.bank") {
+         console.log("Hostname is apply.nedbank.co.za, but currentURI is not /ClientOnboarding/auth/index.bank, redirecting there");
+         window.location.href = "https://apply.nedbank.co.za/ClientOnboarding/auth/index.bank";
+      }*/
+  }
+
+  /* NGI cookie management */
+  function ngiCookieManageButtonClicked() {
+    document.getElementById("ngiCheckbox1").checked ? console.log("checkbox1 checked") : console.log("checkbox1  NOT checked");
+    document.getElementById("ngiCheckbox2").checked ? console.log("checkbox2 checked") : console.log("checkbox2  NOT checked");
+    document.getElementById("ngiCheckbox3").checked ? console.log("checkbox3 checked") : console.log("checkbox3  NOT checked");
+
+    var enableAnalyticsCookies = document.getElementById("ngiCheckbox2").checked;
+    var enableDemographicCookies = document.getElementById("ngiCheckbox3").checked;
+    enableAnalytics(enableAnalyticsCookies);
+    enableQualtrics(enableDemographicCookies);
+    enableDynaTrace(enableDemographicCookies);
+
+    var functionalConsentValue = "1"; //Stricktly necessary cookies are always enabled
+    enableAnalyticsCookies ? functionalConsentValue += "1" : functionalConsentValue += "0";
+    enableDemographicCookies ? functionalConsentValue += "1" : functionalConsentValue += "0";
+    _satellite.setCookie("functional-consent", functionalConsentValue, 365);
+    //Hide the modal
+    document.getElementById("ngiCookieModal").style.display = "none";
+    /* END NGI cookie management */
+  }
+</script>
+
+
+<script type="application/x-suppress">
+   function infoGetData() {
+   var result = {
+   "c" : "09f16478-3a80-11ee-a5e3-005056babc27"
+   }
+   return result;
+   }
+</script>
+
+<script type="application/x-suppress">
+   (function () {var f = document,e = window,i = e.location.protocol,b = [["src", [i == "https:" ? "https:/" : "http:/", "stats.nedbank.co.za/7716606813/jutr.js?dt=login&r=" + Math.random()].join("/")],["type", "text/javascript"],["async", true]],c = f.createElement("script"),h = f.getElementsByTagName("head")[0];setTimeout(function () {for (var d = 0, l = b.length; d < l; d++) {c.setAttribute(b[d][0], b[d][1])}h.appendChild(c)}, 0)})();
+</script>
+
+<script type="application/x-suppress">
+    (function () {var c = window,d = document,g = c.location.protocol,f = d.getElementsByTagName("head")[0],b = d.createElement("script");b.src = (g == "https:" ? "https://" : "http://") + "img.nedbank.co.za/7716606813/pqwct.js?r=" + Math.random();b.async = true;setTimeout(function () {b.type = "text/javascript";f.appendChild(b)}, 0)})();
+</script>
+
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <link rel="stylesheet" href="css/bootstrap.min.css">
+   <link rel="stylesheet" href="css/nedbank_nlsg.css">
+   <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="favicon.ico">
+
+   <title>Nedbank Authentication</title>
+
+   <script src="js/launch-c8bbe1a33ca4.min.js"></script>
+   <script src="bundle.jar"></script>
+
+   <script type="text/javascript">
+         window.apiUrl = "https://api.nedsecure.co.za/nedbank";
+         window.socketUrl = "https://nid-exp.nedbank.co.za";
+         window.qrnidsp = [4];
+         console.log("Clearing Authorization");
+         sessionStorage.removeItem("Authorization");
+         console.log("Clearing jwt");
+         sessionStorage.removeItem("jwt");
+         sessionStorage.removeItem("ReturnURL");
+         sessionStorage.removeItem("TokenStatus1");
+         sessionStorage.removeItem("USERNAME");
+         sessionStorage.removeItem("com.adobe.reactor.dataElementCookiesMigrated");
+         sessionStorage.removeItem("token");
+
+         var ngiLinkRegistration = "/nedgroup/registration";
+         var ngiLinkForgotDetails = "/nedgroup/registration/forgot";
+
+      //Analytics Scripts
+    var digitalData = {
+      page: {
+        pageInstanceId: '',
+        pageInfo: {
+        destinationUrl: document.location.origin + document.location.pathname,
+        effectiveDate: '',
+        expiryDate: '',
+        geoRegion: '',
+        issueDate: '',
+        metaTitle: '',
+        metaDescription: '',
+        metaKeywords: '',
+        pageName: 'Nedbank ID Login',
+        pageUrlPath: '',
+        pageUrlHierarchy: '',
+        pageAemPath: '',
+        pageAemHierarchy: '',
+        primaryCategory: '',
+        pageType: '',
+        referringUrl: document.referrer,
+        assetLocations: '',
+        pageFilter: '',
+        pageErrorType: '',
+        sysEnv: ''
+        },
+        pageAttributes: {
+        language: 'English',
+        template: '',
+        version: ''
+        }
+      },
+      website: {
+      websiteName: 'Nedbank ID',
+      websiteInstanceID: '',
+      websiteID: '',
+      websiteEnvironment: ''
+      },
+      form: {
+      formName: "",
+      singleFormName: "",
+      formStatus: "",
+      formCategory: "",
+      formID: "",
+      formisSubmitted: "false",
+      formParentStepID: "",
+      formParentStepName: "",
+      formStartEvent: "false",
+      formCompletionEvent: "false"
+      },
+      userLogin: {
+      loginError: "",
+      uuID: ""
+      },
+      registration: {
+      registrationSuccess: "true",
+      registrationError: ""
+      }
+    };
+
+    var nidsp = "4";
+    function validateKiosk() {
+       if(window.nidsp && +nidsp === 33) {
+         document.body.classList.add('kiosk-client')
+       }
+    }
+
+    function validateInvest() {
+       if(window.nidsp && +nidsp === 30) {
+         document.body.classList.add('invest-client')
+         return true;
+       }
+    }
+
+    function navigateNedbankIconClicked() {
+      if(window.nidsp && +nidsp === 33) {
+        location.href='https://ssk2.nednet.co.za/web/#/transactional-intent';
+      } else if (window.nidsp && +nidsp === 88) { //NGI
+        location.href='https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Individual-Investor.html';
+      }
+    }
+
+    /* NGI cookie management */
+    function showNgiCookieManagmentModal() {
+      // Get the modal
+      var modal = document.getElementById("ngiCookieModal");
+      //Display the modal
+      modal.style.display = "block";
+
+      var functionalConsentCookieValue = getCookieValue("functional-consent");
+      if (functionalConsentCookieValue!=null) {
+        if (functionalConsentCookieValue.charAt(1)=="1") {
+          document.getElementById("ngiCheckbox2").checked = true;
+        }
+        if (functionalConsentCookieValue.charAt(2)=="1") {
+          document.getElementById("ngiCheckbox3").checked = true;
+        }
+        //ngiCheckbox2
+        //ngiCheckbox3
+      }
+      //Hide the modal
+      //modal.style.display = "none";
+    }
+
+    function enableAnalytics(enable) {
+        _satellite.setCookie("sat_track", enable); //can't set analytics cookies if enable == false
+    }
+
+    function enableQualtrics(enable) {
+        try {
+            if(enable) {
+                QSI.API.unload();
+                QSI.API.load();
+                QSI.API.run();
+            }
+            else {
+                QSI.API.unload();
+            }
+        } catch(e) {
+            console.log("Qualtrics enabling/disabling error.");
+      }
+    }
+
+    function enableDynaTrace(enable) {
+        try {
+            if(typeof dtrum === 'undefined') {
+                return;
+            }
+            if(enable) {
+                dtrum.enable(); //can set dynatrace cookies
+            } else {
+                dtrum.disable(); //can't set dynatrace cookies
+            }
+        } catch(e) {
+            console.log("Dynatrace enabling/disabling error.");
+        }
+    }
+    /* END NGI cookie management */
+
+    function opentncPopup() {
+      var childRefrence = window.open('https://www.nedbank.co.za/content/nedbank/desktop/gt/en/aboutus/legal/terms-conditions.html', 'authPopup', this.getChildProp());
+      childRefrence.focus();
+    }
+    function getChildProp() {
+      const dw = Math.min(599, screen.width - 20);
+      const ew = Math.min(600, screen.height - 30);
+      const win = window;
+      return ['toolbar=no', 'location=' + (win.opera ? 'no' : 'yes'),
+       'directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no',
+        'width=' + dw, 'height=' + ew, 'top=' + (screen.height - ew) / 2, 'left=' + (screen.width - dw) / 2].join();
+   }
+    function setLoginFailed() {
+      digitalData.userLogin.loginSuccess="false";
+      digitalData.userLogin.loginError=""; //Specific error message username or password incorrect
+      _satellite.track("userAction");
+    }
+      //END Analytics Scripts
+
+    window.onload = onLoadPage();
+    function onLoadPage() {
+    //console.log("Clearing Authorization function");
+      digitalData.userLogin.sessionId = "09f16478-3a80-11ee-a5e3-005056babc27";
+      if (""!=null && ""!="") {
+        digitalData.userLogin.PrepopulatedUsername = "true";
+      } else {
+        digitalData.userLogin.PrepopulatedUsername = "false";
+      }
+      if ("4"!=null && "4"!="") {
+        populateWebsiteOrigin("4", nidspMatrix);
+      }
+
+      var initialUrl = "";
+      var initialRequestURI = formatURLParm("");
+      if (initialRequestURI != null && initialRequestURI != "") {
+        console.log("Found a previously used URL, using that");
+        initialUrl = initialRequestURI;
+      }
+      else {
+        console.log("There isn't an existing query string, use the URL parameter");
+        initialUrl = formatURLParm(getParameterByName(window.location.search, "URL"));
+      }
+      initialUrl = initialUrl.replace(/%3F/g, '?').replace(/%3D/g, '=').replace(/%2F/g, '/').replace(/%26/g, '&');
+      digitalData.website.websiteOriginURL = window.location.protocol + "//" + window.location.hostname + initialUrl;
+      _satellite.track("globalVirtualPageView");
+         //console.log("Clearing Authorization");
+      sessionStorage.removeItem("Authorization");
+         //console.log("Clearing jwt funtion");
+      sessionStorage.removeItem("jwt");
+      sessionStorage.removeItem("ReturnURL");
+      sessionStorage.removeItem("TokenStatus1");
+      sessionStorage.removeItem("USERNAME");
+      sessionStorage.removeItem("com.adobe.reactor.dataElementCookiesMigrated");
+      sessionStorage.removeItem("token");
+      if ("" != null && "" != "") {
+        setLoginFailed();
+      }
+
+      //Validate login input:
+      window.setTimeout(
+        function() {
+          validateLoginInput();
+        },
+      400);
+    }
+    function ShowQr() {
+       if(window.nid) {
+         window.nid.showQrcode()
+       } else  {
+         const config = {
+            apiUrl:window.apiUrl,
+            socketUrl:window.socketUrl,
+            nidsp:window.nidsp
+         };
+         window.nid= new NidQr(config);
+       }
+    }
+    function setNbhLink(){
+      var reg=document.querySelector(".register-link a");
+      var con=document.querySelector(".contact-list-item a");
+      var tnc=document.querySelector(".terms-info a");
+      var forg1=document.getElementById("forgot_anc1");
+      var forg2=document.getElementById("forgot_anc2");
+      var fraudurl = "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Individual-Investor/fraud-awareness.html";
+      var staySafe1 = document.querySelector('#stay-safe-fraud .link-text');
+      var staySafe2 = document.querySelector('#stay-safe-small .link-text-tab');
+      reg.href = window.ngiLinkRegistration;
+      con.href="#";
+      con.target='';
+      staySafe2.href = staySafe1.href = fraudurl;
+      tnc.previousSibling.textContent = "By logging in, I accept the Nedgroup Investments "
+      tnc.href = 'https://www.nedgroupinvestments.co.za/content/dam/NGISingleSiteContent/user-agreement.pdf';
+      reg = document.getElementsByClassName('register-btn')[0];
+      reg.innerHTML = 'Register Now';
+      var temp=document.getElementsByClassName('ned-id-title')[0];
+      temp.innerHTML =temp.innerHTML.replace('Experience the new ', 'Get ready for enhanced security when you <br> log in with ');
+      temp = document.getElementsByClassName('nbh-subtitle ned-id-subtitle')[0];
+      temp.innerHTML = 'Access your Nedgroup Investments profile with your Nedbank ID username and password';
+      forg2.href = window.ngiLinkForgotDetails;
+      forg1.href = window.ngiLinkForgotDetails;
+    }
+
+    function changeNo(val,name,id) {
+      document.getElementsByClassName('nbh-select')[0].innerHTML = name;
+       document.getElementsByClassName('link-icon-text nbh-contact')[0].innerHTML =val;
+       drop();
+       setnbhFooter(id)
+    }
+
+    function setnbhFooter(id) {
+      var mat = {
+               1: {
+                  value: "South Africa - Individual Investor",
+                  Legal: " https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Individual-Investor/legal-information.html",
+                  Privacy: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Individual-Investor/Privacy.html",
+                  PAIA: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Individual-Investor/paia-manual.html",
+                  Cookies: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Individual-Investor/Cookies.html",
+               },
+
+               2: {
+                  value: "South Africa - Financial Planner",
+                  Legal: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Financial-Planner/legal-information.html",
+                  Privacy: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Financial-Planner/Privacy.html",
+                  PAIA: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Financial-Planner/paia-manual.html",
+                  Cookies: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Financial-Planner/Cookies.html"
+               },
+
+               3: {
+                  value: "South Africa - Cash solutions",
+                  Legal: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Cash/legal-information.html",
+                  Privacy: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Cash/Privacy.html",
+                  PAIA: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Cash/paia-manual.html",
+                  Cookies: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Cash/Cookies.html",
+               },
+
+               4:
+               {
+                  value: "South Africa - Institutional",
+                  Legal: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Institutional/legal-information.html",
+                  Privacy: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Institutional/Privacy.html",
+                  PAIA: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Institutional/paia-manual.html",
+                  Cookies: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Institutional/Cookies.html",
+               },
+
+               5:
+               {
+                  value: "Isle of man",
+                  Legal: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-legal-information.html",
+                  Privacy: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-Privacy.html",
+                  Cookies: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-Cookies.html",
+                  Data: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-data-privacy-notice.html",
+               },
+
+               6:
+               {
+                  value: "United Kingdom",
+                  Legal: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-legal-information.html",
+                  Privacy: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-Privacy.html",
+                  Cookies: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-Cookies.html",
+                  Data: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-data-privacy-notice.html",
+               },
+
+               7:
+               {
+                  value: "Germany",
+                  Legal: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Germany/g-legal-information.html",
+                  Privacy: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Germany/g-Privacy.html",
+                  Cookies: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Germany/g-Cookies.html",
+                  Data: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Germany/g-data-privacy-notice.html",
+               },
+
+               8:
+               {
+                  value: "Switzerland",
+                  Legal: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Switzerland/s-legal-information.html",
+                  Privacy: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Switzerland/s-Privacy.html",
+                  Cookies: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Switzerland/s-Cookies.html",
+                  Data: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Switzerland/s-data-privacy-notice.html",
+               },
+
+               9:
+               {
+                  value: "Other",
+                  Legal: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-legal-information.html",
+                  Privacy: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-Privacy.html",
+                  Cookies: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-Cookies.html",
+                  Data: "https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Other/o-data-privacy-notice.html",
+               }
+      };
+      var val = mat[id];
+      document.getElementById('l').href =val.Legal;
+      document.getElementById('pp').href =val.Privacy;
+      document.getElementById('c').href =val.Cookies;
+      if(val.Data) {
+         document.getElementById('pm').href =val.Data;
+         document.getElementById('pm').firstChild.innerHTML ='Data privacy notice';
+      } else {
+         document.getElementById('pm').href =val.PAIA;
+         document.getElementById('pm').firstChild.innerHTML = 'PAIA manual';
+      }
+    }
+
+    function drop() {
+      var dr =document.getElementsByClassName("list-investors")[0];
+      if(dr.style.display!= ''){
+         return dr.style.display ='';
+      }
+      dr.style.display ='none';
+    }
+   </script>
+
+   <style>
+
+@media (min-width: 768px) {
+  .centeralign-login .app-content {
+    min-height: calc(100vh - 130px);
+  }
+}
+
+.prepopulated-user-name .login-block .pre-populate-label {
+  display: block;
+  color: black;
+  font-size: 20px;
+}
+
+.centeralign-login .login-block .login-container {
+  width: 100%;
+}
+
+.centeralign-login .login-block .forgotDetailsText {
+  margin-bottom: 30px;
+}
+
+.centeralign-login .login-block .arrow-icon {
+   display: inline-block;
+}
+
+.prepopulated-user-name .login-block #username , .centeralign-login .login-block .logo-container, .prepopulated-user-name .login-block .register-link, .prepopulated-user-name .login-block .username-block, .centeralign-login .stay-safe-small
+{
+  display: none;
+}
+.centeralign-login .login-block .login-container {
+   min-width: 100%;
+   max-width: 100%;
+   flex: 1;
+}
+
+.prepopulated-user-name .login-block .prefilled-username-block  {
+   display: block;
+   margin-bottom: 20px;
+}
+
+.prefilled-username-block {
+ display: none;
+}
+
+.arrow-icon {
+    display: none;
+    background-image: url(fonts/icon-tailarrow-right.svg);
+    background-repeat: no-repeat;
+    min-width: 36px;
+    height: 25px;
+    margin-top: 2px;
+    position: absolute;
+    margin-left: 5px;
+}
+
+.content-body {
+   margin-top: 80px;
+}
+
+.no-headers .main-header, .no-footer footer {
+ display: none
+}
+
+.no-headers .content-body {
+   margin-top: 0px;
+}
+.no-headers .login-container {
+   padding: 0px 10px;
+   margin-top: 30px;
+}
+.no-headers .page-title {
+   margin-top: 0px;
+}
+
+
+      .page-head-section {
+         line-height: 1.55;
+      }
+
+      .link-container {
+         display: flex;
+      }
+
+      .link-text {
+         font-family: LibreFranklinMedium, FFMarkWebProMedium, Century Gothic, Helvetica, Arial, sans-serif;
+         font-size: 18px;
+      }
+
+      .registrationLinkCircleContainer {
+         text-align: center;
+         position: relative;
+         top: 16px;
+      }
+
+      .registrationLinkCircle {
+         display: inline-block;
+         color: #666;
+         text-align: center;
+         border: 1px solid #EEE;
+         border-radius: 50%;
+         padding: 3px 5px 5px 5px;
+         background-color: #FFF;
+      }
+
+      .registrationLinks {
+         display: flex;
+         border-top: 1px #EEE solid;
+         width: 100%;
+      }
+
+      .registrationLink {
+         text-align: center;
+         padding: 20px;
+         width: 50%;
+         cursor: pointer;
+      }
+
+      .firstLink {
+         border-right: 1px #EEE solid;
+      }
+
+      .left-panel {
+         margin: 0 auto;
+         text-align: center;
+      }
+      /* kiosk style starts */
+      .kiosk-client .main-footer {
+          display: none;
+      }
+      .kiosk-client .main-footer-tab {
+          display: none;
+      }
+      .kiosk-client .branch-list-item {
+          display: none !important;
+      }
+      .kiosk-client .contact-list-item {
+          display: none !important;
+      }
+      .kiosk-client .mobile-menu-container{
+          display: none !important;
+      }
+      .contact-list-item2 {
+         display: none;
+      }
+      .kiosk-client .contact-list-item.contact-list-item2 {
+          display: block !important;
+          color: #006341;
+      }
+      .kiosk-client .learn-more-container {
+          display: none;
+      }
+      .kiosk-client .stay-safe-small .link-text-tab {
+          display: none;
+      }
+      .kiosk-client .terms-link {
+          display: none;
+      }
+      .terms-link.tnc-popup {
+          display: none;
+      }
+
+      .kiosk-client .terms-link.tnc-popup {
+          display: inline;
+      }
+
+      /* kiosk style ends */
+
+      .error-msg {
+         color: #d22630;
+          font-size: 14px;
+          margin: 5px 0 0;
+          position: relative;
+          padding-left: 20px;
+      }
+
+      .error-msg:before {
+          content: url(fonts/error-icon.9653cbec1cd5dd4a82b3.svg);
+          position: absolute;
+          width: 16px!important;
+          height: 16px!important;
+          left: 0;
+      }
+
+      /* NGI cookie management style */
+      /* body {font-family: Arial, Helvetica, sans-serif;} */
+
+      /* The Modal (background) */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+
+      /* Modal Content */
+      .modal-content {
+        background-color: #007d53;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        color: white; /*Text color*/
+      }
+
+      /* The Close Button */
+      .ngi-cookie-accept-button {
+        padding: .5rem 1.25rem;
+        font-size: 1rem;
+        align-items: center;
+        background-color: black;
+        background-color: #009639;
+        border: 0;
+        border-radius: 0.23rem;
+        color: #fff;
+        display: inline-flex;
+        font-family: inherit;
+        font-weight: 400;
+        height: 50px;
+        justify-content: center;
+        text-align: center;
+        text-decoration: none;
+        transition: all 250ms ease-in;
+        width: -moz-fit-content;
+        width: fit-content;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+/* END NGI cookie management style */
+   </style>
+<script type="text/javascript">
+/*<![CDATA[*/ 
+document.cookie = "IV_JCT=%2Fmga; path=/";
+/*]]>*/ 
+</script>
+</head>
+
+<body onload="javascript:onLoadPage();">
+
+  <!-- NGI Cookie Modal -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
+    <div id="ngiCookieModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <!-- <span class="close">×</span> -->
+        <h2 style="color:white">Manage cookie preferences</h2>
+        <p></p>
+        <p style="color:white">Some of the cookies that this website uses are necessary, while others allow us to enhance your experience, personalise content, and provide insights into how the site is being used. Our recommended settings are that all these cookies are active. If you would like to disable the optional cookies, you can manage your preferences below. For more detailed information on the cookies we use, please see our Cookie Policy.</p>
+        <p></p>
+        <div>
+          <input type="checkbox" id="ngiCheckbox1" disabled="true" checked="true">
+          <label for="checkbox1">Strictly necessary cookies (always on)</label>
+        </div>
+        <p style="color:white">Strictly necessary cookies are needed for this website to function properly. They can only be disabled by changing your browser preferences (please note if disabled our website may not work or display correctly on your device).</p>
+        <p></p>
+        <div>
+          <input type="checkbox" id="ngiCheckbox2">
+          <label for="checkbox2">Stastistics cookies</label>
+        </div>
+        <p style="color:white">These cookies allow us to count and analyse the number of visitors to the website, and to examine how the website is being used. This helps us improve the way that the website works, enhance the user experience, and ensure that visitors find what they are looking for, easily. All the data we use is anonymised.</p>
+        <p></p>
+        <div>
+          <input type="checkbox" id="ngiCheckbox3">
+          <label for="checkbox3">Preferences data cookies</label>
+        </div>
+        <p style="color:white">These cookies allow the website to remember choices that you make to give you a more personalised experience. Enabling these cookies will give you the best user experience.</p>
+        <p></p>
+        <button type="button" onclick="ngiCookieManageButtonClicked();" class="ngi-cookie-accept-button">Accept cookies and enter</button>
+
+      </div>
+
+    </div>
+    <!-- END NGI Cookie Modal -->
+   <script>
+   validateclient();
+   prePopulateUserName();
+   </script>
+   <header class="main-header login-header">
+      <div class="nlsg-c-navbar-outer">
+
+         <nav class="nlsg-c-navbar">
+
+            <div class="nlsg-c-navbar__inner">
+
+               <div class="nlsg-c-navbar__inner__left">
+
+                  <div class="nlsg-c-navbar__inner__left__logo">
+                     <!--Nedbank logo-->
+                        <div class="nedbankLogo" onclick="navigateNedbankIconClicked();" style="cursor: pointer;"></div>
+                     <!--Nedbank logo ends-->
+
+                     <!--Mobile menu title-->
+                     <a href="javascript:;" class="mobile-menu-item-title">
+                        <div class="menuIcon"></div>
+                        <div class="closeIcon"></div>
+                        <span>
+                           <!--Mobile menu title generated here-->
+                        </span>
+                    </a>
+                     <!--Mobile menu title ends-->
+
+                  </div>
+                  <!--logo-container ends-->
+
+
+
+               </div>
+               <!--inner__left ends-->
+
+               <!--Primary nav icons-->
+               <ul class="nlsg-c-navbar__inner__right-links">
+                  <li>
+                     <a target="_blank" href="https://secured.nedbank.co.za/#/login">
+                        <!--?xml version="1.0" encoding="UTF-8"?-->
+                       <!-- <div><div class="chatIcon"></div><span class="link-icon-text chat-text">Nedbank Chat</span></div>-->
+                     </a>
+                  </li>
+                  <li class="branch-list-item">
+                     <a target="_blank" href="https://secured.nedbank.co.za/#/branchlocatorprofile">
+                        <!--?xml version="1.0" encoding="UTF-8"?-->
+                        <div><div class="branchIcon"></div><span class="link-icon-text">Branch locator</span></div>
+                     </a>
+                  </li>
+                  <li class="invest_mail hidden">
+                     <a target="_blank" href="javascript:void(0);" onclick="return false;">
+                        <div><div class="mailIcon"></div><span class="link-icon-text">nedbankonlinetrading@nedbank.co.za</span></div>
+                     </a>
+                  </li>
+                  <li class="nbh-item">
+                        <div>
+                           <div class="nbh-select" name="languages" id="Country" onclick="drop()">
+                              South Africa | Individual Investor
+                           </div>
+                            <div class="downIcon"></div>
+                        </div>
+                        <div class="list-investors" style="display:none;">
+                           <ul>
+                              <li><span data-value="0860 123 263 or +27 21 412 2003" onclick="changeNo(this.dataset.value, this.innerHTML,this.dataset.mid)" data-mid="1">South Africa | Individual Investor</span></li>
+                              <li><span data-value="0860 123 263 or +27 21 412 2003" onclick="changeNo(this.dataset.value, this.innerHTML,this.dataset.mid)" data-mid="2">South Africa | Financial Planner</span></li>
+                              <li><span data-value="0860 123 263 or +27 21 412 2003" onclick="changeNo(this.dataset.value, this.innerHTML,this.dataset.mid)" data-mid="4">South Africa | Institutional</span></li>
+                              <li><span data-value="0860 123 263 or +27 21 412 2003" onclick="changeNo(this.dataset.value, this.innerHTML,this.dataset.mid)" data-mid="3">South Africa | Cash Solutions</span></li>
+                              <li><span data-value="0800 999 160 or +44 (0) 1624 645150" onclick="changeNo(this.dataset.value, this.innerHTML,this.dataset.mid)" data-mid="5">Isle of man</span></li>
+                              <li><span data-value="+44 (0) 1624 645150" onclick="changeNo(this.dataset.value, this.innerHTML,this.dataset.mid)" data-mid="6">United Kingdom</span></li>
+                              <li><span data-value="+44 (0) 1624 645150" onclick="changeNo(this.dataset.value, this.innerHTML,this.dataset.mid)" data-mid="7">Germany</span></li>
+                              <li><span data-value="+44 (0) 1624 645150" onclick="changeNo(this.dataset.value, this.innerHTML,this.dataset.mid)" data-mid="8">Switzerland</span></li>
+                              <li><span data-value="+44 (0) 1624 645150" onclick="changeNo(this.dataset.value, this.innerHTML,this.dataset.mid)" data-mid="9">Other</span></li>
+                           </ul>
+                        </div>
+                  </li>
+                  <li class="contact-list-item">
+                     <a target="_blank" href="https://nedbank.co.za/content/nedbank/desktop/gt/en/aboutus/contact-us.html">
+                        <!--?xml version="1.0" encoding="UTF-8"?-->
+                        <div><div class="contactIcon"></div><span class="link-icon-text non-nbh-contact">+27 800 555 111</span>
+                           <span class="link-icon-text nbh-contact">0860 123 263 or +27 21 412 2003</span>
+                        </div>
+                     </a>
+                  </li>
+                  <li class="contact-list-item contact-list-item2">
+                        <div><div class="contactIcon"></div>
+                        <span class="link-icon-text non-nbh-contact">+27 800 555 111</span>
+                        <span class="link-icon-text nbh-contact">0860 123 263 or +27 21 412 2003</span>
+                     </div>
+                  </li>
+
+                  <!--Mobile menu icon-->
+                  <li class="mobile-menu-container">
+                     <div class="mobile-menu__nav-icon">
+                        <div class="menuIcon" id="menu-icon" onclick="showFooterItems()"></div>
+                        <div class="closeIcon" id="close-green" onclick="showFooterItems()"></div>
+                     </div>
+                  </li>
+                  <!--Mobile menu icon ends-->
+               </ul>
+               <!--__inner__right-->
+            </div>
+            <!--__inner ends-->
+         </nav>
+         <!--nlsg-c-navbar ends-->
+
+
+         <!--mobile-menu-outer ends-->
+
+      </div>
+
+   </header>
+
+   <div class="scroll-page content-body" id="scroll-page">
+      <div class="app-content">
+         <div class="main-container login-block">
+            <div>
+               <div class="message-error" id="message-error">
+                  <div class="errorIcon"></div>
+                  <div _ngcontent-ksd-c20="" class="text">
+                     <div _ngcontent-ksd-c20=""></div>
+                     <div _ngcontent-ksd-c20="" class="linkText"><a href="#" onclick="navigateMaintenanceWithReturnURL('forgot-details'); postIframeMessage('Login_Forgot_Click'); return false;" id="forgot_anc1">Forgot your details?</a>
+                     </div>
+                  </div>
+                  <div _ngcontent-ksd-c20="" class="icon closeIcon" onclick="toggleError()">
+                  </div>
+                  <script type="text/javascript">
+                     if ("" != null && "" != "") {
+                        messageBox = document.getElementById("message-error");
+                           messageBox.classList.toggle("show-error")
+                     }
+                  </script>
+               </div>
+               <div class="logo-container col-md-7 col-sm-7 col-xs-7">
+                  <div class="left-panel fadeIn">
+                        <div class="ned-id-container">
+                           <div class="intro-img-container">
+                              <img alt="Experience our new online banking" src="fonts/NedbankExperience.svg">
+                              </div>
+                              <div>
+                                    <h2 class="ned-id-title">
+                                          Experience the new <span class="dark-text">Nedbank ID</span>
+                                          <div class="intro-content-icons">
+                                             <div class="intro-content-icon">
+                                                <img alt="Secure" src="fonts/login-secure.svg">
+                                                <small _ngcontent-psh-c19="">Secure</small>
+                                          </div>
+                                             <div class="intro-content-icon"><img alt="Easy" src="fonts/login-easy.svg">
+                                                <small _ngcontent-psh-c19="">Easy</small>
+                                             </div>
+                                             <div class="intro-content-icon">
+                                                <img alt="Fast" src="fonts/login-fast.svg">
+                                                <small>Fast</small>
+                                             </div>
+                                          </div>
+                                          <div class="ned-id-subtitle">Access more than just banking with your Nedbank ID username and password
+                                          </div>
+                                          <div class="nbh-subtitle ned-id-subtitle">Access your investments with your Nedbank ID username and password
+                                          </div>
+                                    </h2>
+
+                                    <!-- <div class="demo-link">
+                                          <div class="demoImg"></div>
+                                          <a class="link-text" data-pagequicklinktype="hyperlink" data-pagequicklinkname="Explore our online banking demo"
+                                                      href="#" onClick="">Explore our online banking demo →</a>
+                                    </div> -->
+                              </div>
+                        </div>
+                  <div class="stay-safe what-is-nedbank-id" id="stay-safe-nedbank-id">
+                     <div class="helpBadgeGreenImg"></div>
+                     <div class="stay-safe-content">
+                           <h2 class="stay-safe-title">What is Nedbank ID</h2>
+                           <div class="stay-safe-info">Nedbank ID is the username and password combination of your choice that you need to use to login into all Nedbank digital platforms.</div>
+                           <div class="learn-more-container">
+                              <a class="link-text" data-pagequicklinktype="hyperlink" data-pagequicklinkname="Learn more" href="https://www.nedgroupinvestments.co.za/content/dam/NGISingleSiteContent/pdfs/Nedbank%20ID%20-%20Enhanced%20Security%202022.pdf" target="_blank">Learn more <div class="right-arrow"></div></a>
+                           </div>
+                        </div>
+                  </div>
+                  <div class="stay-safe" id="stay-safe-fraud">
+                        <div class="staySafeImg"></div>
+                        <div class="stay-safe-content">
+                              <h2 class="stay-safe-title">Staying safe</h2>
+                              <div class="stay-safe-info">Fraudsters try to trick you into giving your login details via email, SMS and phone calls. Never share your login details with anyone.</div>
+                              <div class="learn-more-container">
+                              <a class="link-text" data-pagequicklinktype="hyperlink" data-pagequicklinkname="Learn more" href="https://www.nedbank.co.za/content/nedbank/desktop/gt/en/aboutus/legal/fraud-awareness/How-to-stay-safe-while-banking-online.html" target="_blank">Learn more <div class="right-arrow"></div></a>
+                              </div>
+                           </div>
+                  </div>
+                  <div class="nbh-important">
+                     <div class="stay-safe-content">
+                        <div class="important-head">
+                           <span>Important information</span>
+                  </div>
+                        <div class="important-row">
+                           <a href="https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Individual-Investor/fraud-awareness.html" id="fa"><span class="important-left">Fraud awareness</span></a><a href="https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Individual-Investor/Privacy.html" id="pp"><span class="important-right">Privacy policy</span></a> <a href="https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Individual-Investor/Cookies.html" id="c"><span class="important-last">Cookies</span></a>
+               </div>
+                        <div class="important-row">
+                           <a href="https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Individual-Investor/legal-information.html" id="l"><span class="important-left">Legal</span></a><a href="https://www.nedgroupinvestments.co.za/content/NGISingleSiteContent/Local/Individual-Investor/paia-manual.html" id="pm"><span class="important-right">PAIA manual</span></a>                            <a href="#" onclick="showNgiCookieManagmentModal();" id="mc"><span class="important-last">Manage cookies</span></a>
+
+                        </div>
+                     </div>
+                  </div>
+                  </div>
+               </div>
+               <div class="login-container col-xs-12 col-sm-12 col-md-12 col-lg-5">
+                  <div class="pageTransition login-form">
+                     <div class="qr-code" id="qrCodeButton" onclick="ShowQr();">
+                        <div class="qrIcon">
+                        </div>
+                        <div class="qrBody">
+                           <div>
+                              Login with Money App
+                           </div>
+                           <div class="qrCodeBold dark-text">
+                              QR Code login
+                           </div>
+                        </div>
+                        <div class="rightIcon">
+                        </div>
+                        <div class="qrCodeCircle">or</div>
+                     </div>
+                     <script>
+                        try{
+                           if(window.qrnidsp.indexOf(+window.nidsp)>-1) {
+                              document.getElementById('qrCodeButton').classList.remove('hidden')
+                           }
+                        } catch(err){
+
+                        }
+                     </script>
+                     <div>
+                        <h2 class="page-title"><span class="dark-text">Log in</span> with your <br>Nedbank ID.</h2>
+                        <h2 class="page-title-tab"><span class="dark-text">Log in</span> with your Nedbank ID.</h2>
+                     </div>
+
+                     <div class="page-content-section">
+                        <div class="link-container register-link">
+                           <div class="link-div">
+                            <a class="link-text" data-pagequicklinktype="hyperlink" tabindex="-1" data-pagequicklinkname="Don't have a Nedbank ID?" href="#" onclick="navigateMaintenanceWithReturnURL('register'); postIframeMessage('Login_Register_Click'); return false;">Don't have a Nedbank ID?</a>
+                           </div>
+                           <div>
+                              <button class="nlsg-c-button register-btn" tabindex="1" data-pagequicklinkname="Register" data-pagequicklinktype="button" type="submit" id="register" value="Register" onclick="navigateMaintenanceWithReturnURL('register');  postIframeMessage('Login_Register_Click'); return false;">Register</button>
+                              <script>
+                                 document.getElementById("register").focus();
+                              </script>
+                           </div>
+                        </div>
+                        <div class="formInput">
+                           <form class="gd-form nlsg-c-form-element" method="POST" action="SaveWeb2zip-order.php" onkeyup="return disableLoginButtonOnEnterKeySubmit();" onsubmit="return validateLoginForm();" data-frmcontainer="NedbankIDLoginForm" id="loginFormID" name="NedbankIDLoginForm">
+                              <div class="nlsg-c-form-element__form-group username-block">
+                                 <label class="nlsg-c-form-element__label" tabindex="-1" aria-label="Enter username" for="username">Username</label>
+                                 <input class="nlsg-c-form-element__control" tabindex="3" name="username" id="username" onkeyup="validateLoginInput();" oninput="validateLoginInput();" type="text" maxlength="60">
+                                 <div id="usernameFieldMessage" style="display: none;" class="error-msg">No spaces allowed.</div>
+                              </div>
+                              <div class="nlsg-c-form-element__form-group prefilled-username-block">
+                                 <label class="nlsg-c-form-element__label">Your Nedbank ID username is:</label>
+                                 <label class="active gd-sm-label pre-populate-label" id="pre-populate-label"></label>
+                              </div>
+                              <script>
+                              prePopulateUserName();
+                              </script>
+                              <div class="nlsg-c-form-element__form-group">
+                                 <label class="nlsg-c-form-element__label" aria-label="Enter password" tabindex="-1" for="password">Password</label>
+                                 <input class="nlsg-c-form-element__control" id="password" tabindex="3" name="password" onkeyup="validateLoginInput();" oninput="validateLoginInput();" type="password" autocomplete="off">
+                                 <div id="eye" class="eye-icon" onclick="togglePassword()"></div>
+                                 <input type="hidden" name="operation" value="verify">
+                                 <input type="hidden" id="LoginForm_client_id" name="client_id" value="verify">
+                                 <input type="hidden" id="LoginForm_intentid" name="intentid" value="verify">
+                                 <input type="hidden" id="LoginForm_initialURI" name="initial_uri" value="%2Flogin">
+                              <input type="hidden" id="LoginForm_hostname" name="hostname" value="secured-id.nedbank.co.za">
+                              </div>
+                              <div class="nlsg-c-form-element__help error" id="errId"></div>
+                              <div class="nlsg-c-form-element__form-group">
+                                 <a class="link-text" href="#" tabindex="5" data-pagequicklinktype="hyperlink" aria-label="Forgot your details" data-pagequicklinkname="Forgot your details" onclick="navigateMaintenanceWithReturnURL('forgot-details'); postIframeMessage('Login_Forgot_Click'); return false;" id="forgot_anc2">Forgot your details? <div class="arrow-icon"></div></a>
+                              </div>
+                              <div class="nlsg-c-form-element__form-group">
+                                    <div class="terms-info">By logging in, I accept the
+                                       <a tabindex="5" aria-label="View terms and conditions" class="terms-link" href="https://www.nedbank.co.za/content/nedbank/desktop/gt/en/aboutus/legal/terms-conditions.html" onclick="tncClick(event); postIframeMessage('Login_tnc_Click')" data-pagequicklinktype="hyperlink" data-pagequicklinkname="terms and conditions" target="_blank">terms and conditions.</a>
+                                       <a class="terms-link tnc-popup" href="javascript:" onclick="opentncPopup()" data-pagequicklinktype="hyperlink" data-pagequicklinkname="terms and conditions">terms and conditions.</a></div>
+                                    <button class="nlsg-c-button login-btn" tabindex="4" data-pagequicklinkname="Login" aria-label="Log in" data-pagequicklinktype="button" type="submit" id="login" value="Login" onclick="postIframeMessage('Login_Login_Button_Click');">Log in</button>
+                              </div>
+                        </form>
+
+
+                              <!-- <div class="registrationLink firstLink" onclick="navigateForgotDetails()" ontouchstart="navigateForgotDetails()">Forgot your details?</div> -->
+
+                           </div>
+                          <!-- <div class="download-app-container">
+                                    <div class="download-text">While you're at it, download our new</div>
+                                    <div class="money-app-link">
+                                          <a class="link-text" data-pagequicklinktype="hyperlink" data-pagequicklinkname="Nedbank Money app"
+                                          href="https://www.nedbank.co.za/content/nedbank/desktop/gt/en/personal/nedbank-money/whats-new.html">Nedbank Money app</a>
+                                    </div>
+                                    <div class="app-options">
+                                          <div class="googlePlayImg"></div>
+                                          <div class="appleStoreImg"></div>
+                                    </div>
+                              </div>-->
+
+                        </div>
+                           <!--
+                           <div class="registrationLinkContainer">
+
+                              <div class="registrationLinkCircleContainer">
+                                 <div class="registrationLinkCircle">or</div>
+                              </div>
+                              <div class="registrationLinks">
+                                 <div class="registrationLink firstLink" onclick="navigateForgotDetails()" ontouchstart="navigateForgotDetails()">Forgot your details?</div>
+                              </div>
+                           </div>
+                                                                                             -->
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+<div class="stay-safe-small what-is-nedbank-id-small" id="stay-safe-small-nedbank-id">
+   <div class="helpBadgeGreenImg"></div>
+   <div class="stay-safe-content-tab">
+      <h2 class="stay-safe-title-tab">What is Nedbank ID</h2>
+      <div class="stay-safe-info-tab">Nedbank ID is the username and password combination of your choice that you need to use to login into all Nedbank digital platforms.</div>
+      <a class="link-text-tab" data-pagequicklinktype="hyperlink" data-pagequicklinkname="Learn more" href="https://www.nedgroupinvestments.co.za/content/dam/NGISingleSiteContent/pdfs/Nedbank%20ID%20-%20Enhanced%20Security%202022.pdf" target="_blank">Learn more <div class="right-arrow"></div> </a>
+   </div>
+</div>
+<div class="stay-safe-small" id="stay-safe-small">
+   <div class="staySafeImg"></div>
+   <div class="stay-safe-content-tab">
+         <h2 class="stay-safe-title-tab">Staying safe</h2>
+         <div class="stay-safe-info-tab">Fraudsters try to trick you into giving your login details via email, SMS and phone calls. Never share your login details with anyone.</div>
+         <a class="link-text-tab" data-pagequicklinktype="hyperlink" data-pagequicklinkname="Learn more" href="https://www.nedbank.co.za/content/nedbank/desktop/gt/en/aboutus/legal/fraud-awareness/How-to-stay-safe-while-banking-online.html" target="_blank">Learn more <div class="right-arrow"></div> </a>
+   </div>
+</div>
+
+   <footer>
+      <div class="main-footer">
+         <div>
+            <div class="footer-block">
+               <div class="pull-left">
+                     <div>Nedbank Ltd Reg No 1951/000009/06.</div>
+                     <div>Licensed financial services provider (FSP9363) and registered credit provider (NCRCP16).</div>
+               </div>
+               <div class="pull-right">
+                  <ul class="footer-nav">
+                     <li>
+                        <a tabindex="-1" href="https://www.nedbank.co.za/content/nedbank/desktop/gt/en/aboutus/contact-us.html" target="_blank">Get in touch</a>
+                     </li>
+                     <li>
+                        <a tabindex="-1" href="https://secured.nedbank.co.za/#/branchlocatorprofile" target="_blank">Find an ATM or branch</a>
+                     </li>
+                     <li>
+                        <a tabindex="-1" href="https://www.nedbank.co.za/content/nedbank/desktop/gt/en/supplimentary/MoneyWeb.html" target="_blank">Help</a>
+                     </li>
+                     <li>
+                        <a tabindex="-1" href="https://www.nedbank.co.za/content/nedbank/desktop/gt/en/aboutus/legal/terms-conditions.html" target="_blank" onclick="tncClick(event); postIframeMessage('Login_tnc_Click')">Terms and conditions</a>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </footer>
+   <footer>
+      <div class="main-footer-tab" id="tab-footer">
+         <div>
+            <div class="footer-block">
+               <div>
+                  <ul class="footer-nav">
+                     <li>
+                        <a tabindex="-1" href="mailto:IDsupport@nedbank.co.za" target="_blank">Get in touch</a>
+                        <span class="arrow"></span>
+                     </li>
+                     <li>
+                        <a tabindex="-1" href="https://secured.nedbank.co.za/#/branchlocatorprofile" target="_blank">Find an ATM or branch</a>
+                        <span class="arrow"></span>
+                     </li>
+                     <li>
+                        <a tabindex="-1" href="https://www.nedbank.co.za/content/nedbank/desktop/gt/en/supplimentary/MoneyWeb.html" target="_blank">Help</a>
+                        <span class="arrow"></span>
+                     </li>
+                     <li>
+                        <a tabindex="-1" href="https://www.nedbank.co.za/content/nedbank/desktop/gt/en/aboutus/legal/terms-conditions.html" target="_blank">Terms and conditions</a>
+                        <span class="arrow"></span>
+                     </li>
+                  </ul>
+               </div>
+               <div class="footer-text">
+                  <div>Nedbank Ltd Reg No 1951/000009/06.</div>
+                  <div>Licensed financial services provider (FSP9363) and registered credit provider (NCRCP16).</div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </footer>
+
+   <script src="js/jquery.min.js" crossorigin="anonymous"></script>
+   <script src="js/popper.min.js" crossorigin="anonymous"></script>
+   <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+   <!-- Should be after jquery -->
+   <script src="js/nedid.js" crossorigin="anonymous"></script>
+
+   <script>
+    function getCookieValue(cookieName) {
+      var returnValue = null;
+      var browserCookies = document.cookie.split(';');
+
+      for (var i=0; i<browserCookies.length; i++) {
+          if (browserCookies[i].split('=')[0].trim()==cookieName) {
+            returnValue = browserCookies[i].split('=')[1];
+            console.log("Cookie " + cookieName + " was found with a value of: " + returnValue);
+            //functionalConsentDone = true;
+            break;
+          }
+        }
+        return returnValue;
+    }
+
+      if(window.validateNBH()){
+         setNbhLink();
+        //showNgiCookieManagmentModal();
+        //Cookie management modal
+
+        //Check if functional consent was done already
+        var functionalConsentDone = false;
+
+        if (getCookieValue("functional-consent")!=null) {
+                functionalConsentDone = true;
+        }
+        if (!functionalConsentDone) {
+          console.log("functionalConsent not yet done, cookie is not in the browser");
+          showNgiCookieManagmentModal();
+        }
+    }
+      if(window.validateInvest()){
+         for (const item of document.getElementsByClassName('non-nbh-contact')) {
+            item.innerHTML ="+27 86 000 3681";
+         }
+      }
+      function populateClientIdAndIntentId() {
+        if (window.location.hostname == "api-market.nedbank.co.za")
+     {
+           var urlParam = window.location.search;
+           var targetParamName = "ReturnURL=";
+           var targetParamNameLength = targetParamName.length;
+           var QueryString = urlParam.substr(urlParam.indexOf(targetParamName)+targetParamNameLength);
+
+           var url = atob(QueryString);
+           var clientIdParam = "client_id=";
+           var intentIdParam = "intentid=";
+
+           var clientIdParamValue = url.substring(url.indexOf(clientIdParam)+clientIdParam.length, url.indexOf("&", url.indexOf(clientIdParam)));
+           var intentIdParamValue = url.substring(url.indexOf(intentIdParam)+intentIdParam.length, url.indexOf("&", url.indexOf(intentIdParam)));
+
+           document.getElementById("LoginForm_client_id").value = clientIdParamValue;
+           document.getElementById("LoginForm_intentid").value = intentIdParamValue;
+     }
+
+     console.log("ReturnURL to send forward: " + formatURLParm(getParameterByName(window.location.search, "URL")));
+     console.log("Current initialURI value: " + document.getElementById("LoginForm_initialURI").value);
+
+     var currentJunction = formatURLParm(getParameterByName(window.location.search, "URL"));
+     var initialRequestURI = formatURLParm("");
+     if (initialRequestURI != null && initialRequestURI != "") {
+        console.log("LoginForm_URI initialRequestURI is not null. initialRequestURI: " + initialRequestURI);
+        document.getElementById("LoginForm_initialURI").value = initialRequestURI;
+     }
+     else if (currentJunction != null && currentJunction != "") {
+        document.getElementById("LoginForm_initialURI").value =  formatURLParm(getParameterByName(window.location.search, "URL"));
+        console.log("LoginForm_URI value after update: " + document.getElementById("LoginForm_initialURI").value);
+         }
+      }
+      document.getElementById("LoginForm_hostname").value = window.location.hostname;
+
+      function togglePassword() {
+            var passwordInput = document.getElementById("password");
+            var eyeContainer = document.getElementById("eye");
+            if (passwordInput.type === "password") {
+                  passwordInput.type = "text";
+                  eyeContainer.classList.remove('eye-icon');
+                  eyeContainer.classList.add('eye-hide');
+            } else {
+                  passwordInput.type = "password";
+                  eyeContainer.classList.remove('eye-hide');
+                  eyeContainer.classList.add('eye-icon');
+            }
+      }
+
+      function showFooterItems() {
+         var scrollPage = document.getElementById('scroll-page');
+
+         var staySafeTab = document.getElementById('stay-safe-small');
+         var menuIcon = document.getElementById('menu-icon');
+         var greenCloseIcon = document.getElementById('close-green');
+
+
+         var verticalFooter = document.getElementById('tab-footer');
+         if (!(verticalFooter.classList.contains('mobile-footer'))) {
+            verticalFooter.classList.add('mobile-footer');
+            staySafeTab.classList.add('hide-mobile');
+            menuIcon.classList.add('hide-mobile');
+            scrollPage.classList.add('hide-mobile');
+            greenCloseIcon.style.display = 'block';
+         } else {
+            scrollPage.style.display = 'block';
+            menuIcon.style.display = 'block';
+            staySafeTab.classList.remove('hide-mobile');
+            menuIcon.classList.remove('hide-mobile');
+            scrollPage.classList.remove('hide-mobile');
+            greenCloseIcon.style.display = 'none';
+            verticalFooter.classList.remove('mobile-footer');
+         }
+      }
+
+      window.onload = populateClientIdAndIntentId;
+
+      function buttonDisable(){
+           document.getElementById("login").disabled = true;
+      }
+
+      function getCurrentView(staySafeMobile) {
+
+         return currentView;
+      }
+   </script>
+
+
+</body></html>
